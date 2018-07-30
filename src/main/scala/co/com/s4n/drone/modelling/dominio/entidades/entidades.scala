@@ -1,26 +1,6 @@
 package co.com.s4n.drone.modelling.dominio.entidades
 
-
-
-//Se definen Sustantivos
-trait movimiento
-
-object movimiento {
-  def newMovimiento(c:Char):movimiento ={
-    c match {
-      case 'A' => A()
-      case 'D' => D()
-      case 'I' => I()
-      case _ => throw new Exception(s"Caracter invalido para creacion de movimiento: $c")
-    }
-  }
-}
-
- // extienden de movimiento
-  case class A( ) extends movimiento
-  case class I( ) extends movimiento
-  case class D( ) extends movimiento
-
+import co.com.s4n.drone.modelling.dominio.servicios.AlgebraInstruccion
 
 
 // Company de orientacion
@@ -59,6 +39,8 @@ case class  Capacidad( almuerzos : Int)
 
 //Sustantivo
 case class Drone (posicion: Posicion,capacidad: Capacidad)
+
+case class  movimiento (posicion: Posicion, instruccion: instruccion)
 
 
 
