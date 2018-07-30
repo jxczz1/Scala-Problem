@@ -1,0 +1,6 @@
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documentos/proyecto-final-drones/src/main/scala/co/com/s4n/drone/modelling/dominio/servicios/ServicioDrone.scala:84:73: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : Unit[0m
+[0m[[0m[31merror[0m] [0m[0m required: co.com.s4n.drone.modelling.dominio.entidades.movimiento[0m
+[0m[[0m[31merror[0m] [0m[0m    def MovimientoDron( ruta: Array[String],pos :Posicion) :movimiento ={[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                        ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

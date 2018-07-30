@@ -1,0 +1,27 @@
+[0m[[0m[0mdebug[0m] [0m[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mInitial source changes: [0m
+[0m[[0m[0mdebug[0m] [0m[0m	removed:Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0m	added: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0m	modified: Set(/home/s4n/Documentos/proyecto-final-drones/src/main/scala/co/com/s4n/drone/modelling/dominio/entidades/entidades.scala, /home/s4n/Documentos/proyecto-final-drones/src/main/scala/co/com/s4n/drone/modelling/dominio/servicios/ServicioDrone.scala)[0m
+[0m[[0m[0mdebug[0m] [0m[0mInvalidated products: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0mExternal API changes: API Changes: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0mModified binary dependencies: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0mInitial directly invalidated classes: Set(co.com.s4n.drone.modelling.dominio.entidades.movimiento, co.com.s4n.drone.modelling.dominio.entidades.E, co.com.s4n.drone.modelling.dominio.entidades.D, co.com.s4n.drone.modelling.dominio.servicios.AlgebraServicioDrone, co.com.s4n.drone.modelling.dominio.servicios.InterpretacionServicioDrone, co.com.s4n.drone.modelling.dominio.entidades.I, co.com.s4n.drone.modelling.dominio.entidades.Coordenada, co.com.s4n.drone.modelling.dominio.entidades.O, co.com.s4n.drone.modelling.dominio.entidades.Orientacion, co.com.s4n.drone.modelling.dominio.entidades.S, co.com.s4n.drone.modelling.dominio.entidades.Drone, co.com.s4n.drone.modelling.dominio.entidades.N, co.com.s4n.drone.modelling.dominio.entidades.A, co.com.s4n.drone.modelling.dominio.entidades.Posicion)[0m
+[0m[[0m[0mdebug[0m] [0m[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mSources indirectly invalidated by:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	product: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0m	binary dep: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0m	external source: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0mAll sources are invalidated.[0m
+[0m[[0m[0mdebug[0m] [0m[0mRecompiling all 2 sources: invalidated sources (2) exceeded 50.0% of all sources[0m
+[0m[[0m[0minfo[0m] [0m[0mCompiling 2 Scala sources to /home/s4n/Documentos/proyecto-final-drones/target/scala-2.12/classes ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mGetting org.scala-sbt:compiler-bridge_2.12:1.2.0:compile for Scala 2.12.6[0m
+[0m[[0m[0mdebug[0m] [0m[0mGetting org.scala-sbt:compiler-bridge_2.12:1.2.0:compile for Scala 2.12.6[0m
+[0m[[0m[0mdebug[0m] [0m[0m[zinc] Running cached compiler a8b08ff for Scala compiler version 2.12.6[0m
+[0m[[0m[0mdebug[0m] [0m[0m[zinc] The Scala compiler is invoked with:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	-bootclasspath[0m
+[0m[[0m[0mdebug[0m] [0m[0m	/usr/lib/jvm/jdk1.8.0_181/jre/lib/resources.jar:/usr/lib/jvm/jdk1.8.0_181/jre/lib/rt.jar:/usr/lib/jvm/jdk1.8.0_181/jre/lib/sunrsasign.jar:/usr/lib/jvm/jdk1.8.0_181/jre/lib/jsse.jar:/usr/lib/jvm/jdk1.8.0_181/jre/lib/jce.jar:/usr/lib/jvm/jdk1.8.0_181/jre/lib/charsets.jar:/usr/lib/jvm/jdk1.8.0_181/jre/lib/jfr.jar:/usr/lib/jvm/jdk1.8.0_181/jre/classes:/home/s4n/.sbt/boot/scala-2.12.6/lib/scala-library.jar[0m
+[0m[[0m[0mdebug[0m] [0m[0m	-classpath[0m
+[0m[[0m[0mdebug[0m] [0m[0m	/home/s4n/Documentos/proyecto-final-drones/target/scala-2.12/classes:/home/s4n/.ivy2/cache/org.scalactic/scalactic_2.12/bundles/scalactic_2.12-3.0.5.jar:/home/s4n/.sbt/boot/scala-2.12.6/lib/scala-reflect.jar[0m
+[0m[[0m[0mdebug[0m] [0m[0mCompilation failed (CompilerInterface)[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
