@@ -3,3 +3,9 @@ exit
 testOnly scala
 testOnly co.com.s4n.drone.droneTest
 testOnly co.com.s4n.drone.droneTest.TestDroneMovimiento
+testOnly co.com.s4n.dronetest.TestDroneMovimiento
+testOnly co.com.s4n.drone.TestDroneMovimiento
+testOnly co.com.s4n.drone.droneTest.TestDroneMovimiento
+testOnly co.com.s4n.drone.TestDroneMovimiento
+sbt
+testOnly co.com.s4n.drone.TestDroneMovimiento

@@ -1,10 +1,9 @@
 package co.com.s4n.drone.modelling.dominio.entidades
 
-import co.com.s4n.drone.modelling.dominio.servicios.AlgebraInstruccion
+
 
 
 // Company de orientacion
-
 object Orientacion {
   def newOrientacion(o:Char): Orientacion ={
     o match {
@@ -12,7 +11,6 @@ object Orientacion {
       case 'S' => S()
       case 'E' => E()
       case 'O' => O()
-      case _ => throw new Exception(s"Caracter invalido para creacion de orientacion: $o")
     }
   }
 
@@ -37,10 +35,10 @@ case class  Coordenada( x: Int ,y: Int )
 //Se define capacidad del dron
 case class  Capacidad( almuerzos : Int)
 
-//Sustantivo
-case class Drone (posicion: Posicion,capacidad: Capacidad)
+//Sustantivo drone
+case class Drone ( id:Int, posicion: Posicion,capacidad: Int )
 
-case class  movimiento (posicion: Posicion, instruccion: instruccion)
+
 
 
 

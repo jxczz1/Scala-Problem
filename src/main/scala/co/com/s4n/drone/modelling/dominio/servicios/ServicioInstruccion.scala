@@ -1,30 +1,30 @@
 package co.com.s4n.drone.modelling.dominio.servicios
 
-import co.com.s4n.drone.modelling.dominio.entidades.{Posicion, movimiento}
+import co.com.s4n.drone.modelling.dominio.entidades._
 
 
 //Defino Algebra Api LeerInstruccion
-sealed trait algebraInstrucciones {
+sealed trait algebraServicioInstrucciones {
 
-  def OperarInstruccion (mov : movimiento): Posicion // Interpreto instrucciones  y muestro lso movimientos
+  def operarInstruccion (drone: Drone , instruccion : Instruccion): Drone // Interpreto instrucciones  y muestro los movimientos
 
 }
 
 
 //Interpretar AlgebraInstrucciones
-scaled trait interpreteHacerInstrucciones extends algebraInstrucciones{
+sealed trait interpreteHacerInstrucciones extends algebraServicioInstrucciones {
 
 
-  def OperarInstruccion (mov : movimiento): Posicion ={
+  def operarInstruccion(drone: Drone, instruccion : Instruccion): Drone = {
 
-    val posActualizada : Posicion = mov.instruccion match {
-      case A() => interpreteSeguirRuta.avanzar(mov.posicion)
-      case I() => interpreteSeguirRuta.moverDerecha(mov.posicion)
-      case D() => interpreteSeguirRuta.moverIzquierda(mov.posicion)
-      }
+    val posActualizada: Drone = instruccion match {
+      case A() => InterpretacionServicioDrone.avanzarDrone(drone)
+      case D() => InterpretacionServicioDrone.giroAlaDerecha(drone)
+      case I() => InterpretacionServicioDrone.giroAlaIzquierda(drone)
+
+    }
     posActualizada
   }
-
 
 }
 
