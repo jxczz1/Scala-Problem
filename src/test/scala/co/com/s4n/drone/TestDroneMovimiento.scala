@@ -16,9 +16,9 @@ class TestDroneMovimiento extends FunSuite {
 
 
     val pos = new Posicion(Coordenada(5, 6), N())
-    val drone: Drone = new Drone(1,pos,10)
+    val drone: Drone = new Drone(1,pos,Capacidad(10))
     println(s"Aquiiii ${drone}")
-    assert(drone == Drone(1,Posicion(Coordenada(5,6),N()),10))
+    assert(drone == Drone(1,Posicion(Coordenada(5,6),N()),Capacidad(10)))
 
 
   }
@@ -28,10 +28,10 @@ class TestDroneMovimiento extends FunSuite {
 
 
      val pos = Posicion(Coordenada(4,5),N())
-     val drone: Drone = new Drone(1,pos,10)
+     val drone: Drone = new Drone(1,pos,Capacidad(10))
      val prueba: Drone= InterpretacionServicioDrone.avanzarDrone(drone)
 
-     assert(prueba ==  Drone(1,Posicion(Coordenada(4,6),N()),10))
+     assert(prueba ==  Drone(1,Posicion(Coordenada(4,6),N()),Capacidad(10)))
 
   }
 
@@ -43,11 +43,11 @@ class TestDroneMovimiento extends FunSuite {
 
 
     val pos = Posicion(Coordenada(4,5),S())
-    val drone: Drone = new Drone(1,pos,10)
+    val drone: Drone = new Drone(1,pos,Capacidad(10))
     val posActualizada: Drone= InterpretacionServicioDrone.giroAlaIzquierda(drone )
 
 
-    assert(posActualizada == Drone(1,Posicion(Coordenada(4,5),E()),10) )
+    assert(posActualizada == Drone(1,Posicion(Coordenada(4,5),E()),Capacidad(10)) )
 
   }
 
@@ -56,11 +56,11 @@ class TestDroneMovimiento extends FunSuite {
 
 
     val pos = Posicion(Coordenada(4,5),S())
-    val drone: Drone = new Drone(1,pos,10)
+    val drone: Drone = new Drone(1,pos,Capacidad(10))
     val posActualizada: Drone= InterpretacionServicioDrone.giroAlaDerecha(drone)
 
 
-    assert(posActualizada ==  Drone(1,Posicion(Coordenada(4,5),O()),10))
+    assert(posActualizada ==  Drone(1,Posicion(Coordenada(4,5),O()),Capacidad(10)))
 
   }
 
@@ -81,14 +81,14 @@ class TestDroneMovimiento extends FunSuite {
 
   test("Interpretar ruta de una entrega  del drone ") {
 
-    val listaInstrucciones: List[Instruccion] =List(I(),I(),I(),I(),D(),A(),D(),D(),A(),A())
+    val listaInstrucciones: Entrega =Entrega(List(I(),I(),I(),I(),D(),A(),D(),D(),A(),A()))
     val pos = Posicion(Coordenada(-7,-3),E())
-    val drone: Drone = new Drone(1,pos,10)
+    val drone: Drone = new Drone(1,pos,Capacidad(10))
 
 
     val posfinRuta : Drone =  InterpretacionServicioDrone.hacerEntrega(listaInstrucciones,drone)
 
-    assert(posfinRuta==Drone(1,Posicion(Coordenada(-7,-2),N()),10) )
+    assert(posfinRuta==Drone(1,Posicion(Coordenada(-7,-2),N()),Capacidad(10)) )
 
   }
 
@@ -96,7 +96,7 @@ class TestDroneMovimiento extends FunSuite {
 
   test("Test leer Archivo de instrucciones  ") {
 
-    val fileName = "/home/s4n/Documentos/in.txt"
+    val fileName : Archivo = Archivo("/home/s4n/Documentos/in.txt")
 
     println("\n ***********************LISTA INSTRUCCIONES*************** ")
     val listIntrucciones = interpretealgebraServicioArchivos.leerArchivo(fileName)
@@ -106,26 +106,57 @@ class TestDroneMovimiento extends FunSuite {
 
   test("Test hacer todas las entregas del archivo  ") {
 
-    val fileName = "/home/s4n/Documentos/in.txt"
+    val fileName: Archivo = Archivo("/home/s4n/Documentos/in.txt")
 
 
     val pos = Posicion(Coordenada(0,0),N())
-    val drone: Drone = new Drone(1,pos,10)
-     println("\n ***********************LISTA INSTRUCCIONES*************** ")
-    val listIntrucciones: List[List[Instruccion]] = interpretealgebraServicioArchivos.leerArchivo(fileName)
-
-    val liposDrone: List[Drone] = List(drone)
-
-    val resultadoEntrega: List[Drone] = listIntrucciones.foldLeft(liposDrone) { (resultado, item) =>
-      resultado :+ InterpretacionServicioDrone.hacerEntrega(item,resultado.last)
-    }
-
+    val drone: Drone = new Drone(1,pos,Capacidad(10))
 
     println("\n ***********************LISTA INSTRUCCIONES*************** ")
-    println(s"Lista Resultados donde hizo entregas el dron\n ${resultadoEntrega}  ")
+
+    val listRuta: Ruta = interpretealgebraServicioArchivos.leerArchivo(fileName)
+
+    val liposDrone: List[Drone] = InterpretacionServicioDrone.hacerRuta(listRuta,drone)
+
+     println("\n ***********************LISTA INSTRUCCIONES*************** ")
+     println(s"Lista Resultados donde hizo entregas el dron\n ${liposDrone}  ")
 
    assert(1 == 1)
   }
+
+
+  test("Test leer Archivo de instrucciones2  ") {
+
+
+
+  }
+
+  test("Test Resultados coordenadas  x") {
+
+    val fileName: Archivo= Archivo("/home/s4n/Documentos/in.txt")
+
+
+    val pos = Posicion(Coordenada(0,0),N())
+    val drone: Drone = new Drone(1,pos,Capacidad(10))
+
+    val listRuta: Ruta = interpretealgebraServicioArchivos.leerArchivo(fileName)
+
+    val liposDrone: List[Drone] = InterpretacionServicioDrone.hacerRuta(listRuta,drone)
+
+    val reporteDrone: List[Posicion] = InterpretacionServicioDrone.reporteEntrega(liposDrone)
+
+    val crearReporte = interpretealgebraServicioArchivos.generarReporteEntrega(reporteDrone)
+
+    println("\n ***********************LISTA Resultados*************** ")
+    println(s"Lista Resultados de posicion donde hizo entregas el dron\n ${crearReporte}  ")
+
+
+
+    assert(1 == 1)
+
+  }
+
+
 
 
 

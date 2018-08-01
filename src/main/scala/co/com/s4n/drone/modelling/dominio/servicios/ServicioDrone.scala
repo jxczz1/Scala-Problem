@@ -9,8 +9,10 @@ import co.com.s4n.drone.modelling.dominio.entidades._
     def giroAlaIzquierda(drone: Drone):Drone
     def giroAlaDerecha(drone: Drone):Drone
     def avanzarDrone(drone: Drone): Drone
-    def hacerEntrega (ruta :List[Instruccion]  , drone :Drone): Drone
-
+    def hacerEntrega (entrega: Entrega  , drone :Drone): Drone
+    def hacerRuta (ruta: Ruta  , drone :Drone): List[Drone]
+    def operarInstruccion (drone: Drone , instruccion : Instruccion): Drone
+    def reporteEntrega ( drone: List[Drone] ): List[Posicion]
   }
 
 
@@ -73,30 +75,54 @@ import co.com.s4n.drone.modelling.dominio.entidades._
         }
         val posActual = Posicion(coordenadaActualizada, drone.posicion.orientacion)
         val droneActual = Drone(drone.id,posActual,drone.capacidad)
-        println("\n ***********AvanzarDrone**************")
-        println(s"avanzar drone Aquiiii${droneActual}")
         droneActual
     }
 
 
-     def hacerEntrega ( ruta :List[Instruccion] , drone :Drone): Drone ={
+     def operarInstruccion(drone: Drone, instruccion : Instruccion): Drone = {
+
+       val posActualizada: Drone = instruccion match {
+         case A() => InterpretacionServicioDrone.avanzarDrone(drone)
+         case D() => InterpretacionServicioDrone.giroAlaDerecha(drone)
+         case I() => InterpretacionServicioDrone.giroAlaIzquierda(drone)
+
+       }
+       posActualizada
+     }
+
+
+
+     def hacerEntrega ( entrega: Entrega , drone :Drone): Drone ={
 
        val lipos: List[Drone] = List(drone) //Lista posicion
        // val ruta2:  List[Char] = entrega.toList   //convertimos la cadena en una lista de char para leer la instruccion
-       val liposActu :List[Drone] = ruta.foldLeft(lipos){ (resultado,item) =>
-         resultado :+ interpreteHacerInstrucciones.operarInstruccion(resultado.last,item)
+       val liposActu :List[Drone] = entrega.listaInstrucciones.foldLeft(lipos){ (resultado,item) =>
+         resultado :+ operarInstruccion(resultado.last,item)
        }
-
-       println("\n ************Ruta que hace el drone****************** ")
-       println(s"Lista de toda la ruta que hace el drone \n  ${liposActu}")
        val posFinalDron: Drone =liposActu.last// Ultima posicion recorrido dron durante la ruta
        posFinalDron
 
      }
 
+     def hacerRuta ( ruta : Ruta  , drone :Drone): List[Drone] ={ //Funcion que entrega los domilios en lso destinos
+
+       val liposDrone: List[Drone] = List(drone)
+       val resultadoEntrega: List[Drone] = ruta.listaEntregas.foldLeft(liposDrone) {
+         (resultado, item) =>
+          resultado :+ InterpretacionServicioDrone.hacerEntrega(item,resultado.last)
+       }
+        resultadoEntrega
+     }
+
+     def reporteEntrega ( drone: List[Drone] ): List[Posicion] ={ //Funcion que entrega Resultados de entrega domicilios dron
+
+       val reporteEntrega: List[Posicion] = drone.map(x => x.posicion)
+       reporteEntrega
+     }
+
+
 
    }
-
 
   // Trait Object
   object InterpretacionServicioDrone extends InterpretacionServicioDrone
