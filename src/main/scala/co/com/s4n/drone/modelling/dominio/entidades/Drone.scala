@@ -1,6 +1,8 @@
 package co.com.s4n.drone.modelling.dominio.entidades
 
+import com.sun.net.httpserver.Authenticator.Failure
 
+import scala.util.{Failure, Try}
 
 
 // Company de orientacion
@@ -59,7 +61,7 @@ object Instruccion {    //Se verifica dato Que ingresa
       case "A" => A()
       case "D" => D()
       case "I" => I()
-      //case _ => new IllegalArgumentException("Error de instruccion")
+      //case _ => Failure(new IllegalArgumentException("Instruccion incorrecta"))
     }
   }
 }

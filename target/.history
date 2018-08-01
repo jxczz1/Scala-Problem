@@ -11,3 +11,5 @@ sbt
 testOnly co.com.s4n.drone.TestDroneMovimiento
 testOnly co.com.s4n.drone.TestDroneMoviento
 testOnly co.com.s4n.drone.TestDroneMovimiento
+git add .
+git status

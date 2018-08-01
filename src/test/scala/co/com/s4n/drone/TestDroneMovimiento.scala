@@ -114,12 +114,12 @@ class TestDroneMovimiento extends FunSuite {
 
     println("\n ***********************LISTA INSTRUCCIONES*************** ")
 
-    val listRuta: Ruta = interpretealgebraServicioArchivos.leerArchivo(fileName)
+    //val listRuta: Ruta = interpretealgebraServicioArchivos.leerArchivo(fileName)
 
-    val liposDrone: List[Drone] = InterpretacionServicioDrone.hacerRuta(listRuta,drone)
+   // val liposDrone: List[Drone] = InterpretacionServicioDrone.hacerRuta(listRuta,drone)
 
      println("\n ***********************LISTA INSTRUCCIONES*************** ")
-     println(s"Lista Resultados donde hizo entregas el dron\n ${liposDrone}  ")
+     //println(s"Lista Resultados donde hizo entregas el dron\n ${liposDrone}  ")
 
    assert(1 == 1)
   }
@@ -139,16 +139,16 @@ class TestDroneMovimiento extends FunSuite {
     val pos = Posicion(Coordenada(0,0),N())
     val drone: Drone = new Drone(1,pos,Capacidad(10))
 
-    val listRuta: Ruta = interpretealgebraServicioArchivos.leerArchivo(fileName)
+    //val listRuta: Ruta = interpretealgebraServicioArchivos.leerArchivo(fileName)
 
-    val liposDrone: List[Drone] = InterpretacionServicioDrone.hacerRuta(listRuta,drone)
+   // val liposDrone: List[Drone] = InterpretacionServicioDrone.hacerRuta(listRuta,drone)
 
-    val reporteDrone: List[Posicion] = InterpretacionServicioDrone.reporteEntrega(liposDrone)
+   // val reporteDrone: List[Posicion] = InterpretacionServicioDrone.reporteEntrega(liposDrone)
 
-    val crearReporte = interpretealgebraServicioArchivos.generarReporteEntrega(reporteDrone)
+    //val crearReporte = interpretealgebraServicioArchivos.generarReporteEntrega(reporteDrone)
 
     println("\n ***********************LISTA Resultados*************** ")
-    println(s"Lista Resultados de posicion donde hizo entregas el dron\n ${crearReporte}  ")
+   // println(s"Lista Resultados de posicion donde hizo entregas el dron\n ${crearReporte}  ")
 
 
 

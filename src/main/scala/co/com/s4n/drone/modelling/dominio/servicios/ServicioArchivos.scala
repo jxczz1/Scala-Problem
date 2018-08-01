@@ -5,10 +5,12 @@ import co.com.s4n.drone.modelling.dominio.entidades._
 import scala.io.Source
 import java.io._
 
+import scala.util.Try
+
 
 sealed trait algebraServicioArchivos {
 
-  def leerArchivo(txtName: Archivo): Ruta
+  def leerArchivo(txtName: Archivo): Try[Ruta]
   def generarReporteEntrega(reporteEntrega: List[Posicion]): Reporte
 }
 
@@ -16,14 +18,26 @@ sealed trait algebraServicioArchivos {
 sealed trait interpretealgebraServicioArchivos extends algebraServicioArchivos {
 
 
-   def leerArchivo(txtName: Archivo): Ruta = {
-     val listaInstrucciones :List[String] = Source.fromFile(txtName.archivo).getLines().toList//
-     val a = listaInstrucciones.map(x => x.toList)
-     val b = a.map( x => x.map(y=> Instruccion.newInstruccion(y.toString)))
+   def leerArchivo(txtName: Archivo): Try[Ruta] = {
+     val listaInstrucciones :List[String] = Source.fromFile(txtName.archivo).getLines().toList
+
+     val a: List[List[Char]] = listaInstrucciones.map(x => x.toList)
+     val b: List[List[Instruccion]] = a.map(x => x.map(y=> Instruccion.newInstruccion(y.toString)))
+     val c: List[Entrega] = b.map(x=> Entrega(x))
+     val ruta = Ruta(c)
+     Try(ruta)
+   }
+
+   def generarRuta(listaTxt : List[List[Char]]): Ruta={
+
+     val b = listaTxt.map( x => x.map(y=> Instruccion.newInstruccion(y.toString)))
      val c: List[Entrega] = b.map(x=> Entrega(x))
      val ruta = Ruta(c)
      ruta
+
+
    }
+
 
 
   def generarReporteEntrega(reporteEntrega: List[Posicion]): Reporte = {
@@ -42,7 +56,6 @@ sealed trait interpretealgebraServicioArchivos extends algebraServicioArchivos {
     )
     bw.close()
    Resultado
-
 
 
   }
