@@ -3,7 +3,8 @@ package co.com.s4n.drone.modelling.dominio.servicios
 import java.util.concurrent.Executors
 
 import co.com.s4n.drone.modelling.dominio.entidades._
-
+import co.com.s4n.drone.modelling.dominio.main.{drone, listRuta}
+import scala.concurrent.ExecutionContext.global
 import scala.concurrent.{ExecutionContext, ExecutionContextExecutorService, Future}
 import scala.util.Try
 
@@ -18,18 +19,20 @@ sealed trait ServicioDronAlgebra {
 
   def hacerEntrega(entrega: Entrega, drone: Drone): Drone
 
-  def hacerRuta(ruta: Try[Ruta], drone: Drone): Future[List[Drone]]
+  def hacerRuta(ruta: Ruta, drone: Drone): List[Drone]
 
   def operarInstruccion(drone: Drone, instruccion: Instruccion): Drone
 
-  def reporteEntrega(drone: Future[List[Drone]]): Future[List[Posicion]]
+  def reporteEntrega(drone: List[Drone]): List[Posicion]
+
+  def repartirPedidos(drone: Drone, ruta: Ruta)(implicit ec: ExecutionContext): Future[List[Drone]]
 }
 
 
 sealed trait ServicioDron extends ServicioDronAlgebra {
 
   //  Hilo Principal
-  implicit val pplhilo: ExecutionContextExecutorService = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(20))
+  val ecDrones = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(20))
 
   //Operaciones Orientacion
 
@@ -117,26 +120,27 @@ sealed trait ServicioDron extends ServicioDronAlgebra {
 
   }
 
-  def hacerRuta(ruta: Try[Ruta], drone: Drone): Future[List[Drone]] = { //Funcion que entrega los domilios en lso destinos
+  def hacerRuta(ruta: Ruta, drone: Drone): List[Drone]= { //Funcion que entrega los domilios en lso destinos
 
-    val res = Future {
+
 
       val liposDrone: List[Drone] = List(drone)
-      val resultadoEntrega: List[Drone] = ruta.get.listaEntregas.foldLeft(liposDrone) {
+      val resultadoEntrega: List[Drone] = ruta.listaEntregas.foldLeft(liposDrone) {
         (resultado, item) =>
           resultado :+ ServicioDron.hacerEntrega(item, resultado.last)
-      }
+        }
       resultadoEntrega
-    }
-    res
+
   }
 
-  def reporteEntrega(drone: Future[List[Drone]]): Future[List[Posicion]] = { //Funcion que entrega Resultados de entrega domicilios dron
+  def reporteEntrega(drone: List[Drone]): List[Posicion] = { //Funcion que entrega Resultados de entrega domicilios dron
 
-    val reporteEntrega: Future[List[Posicion]] = drone.map(x => x.map(y => y.posicion))
+    val reporteEntrega: List[Posicion] = drone.map(x => x.posicion)
     reporteEntrega
+
   }
 
+  def repartirPedidos(drone: Drone, ruta: Ruta)(implicit ec: ExecutionContext): Future[List[Drone]]= Future(hacerRuta(listRuta,drone))
 
 }
 

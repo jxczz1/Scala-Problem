@@ -1,0 +1,6 @@
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documentos/proyecto-final-drones/src/test/scala/co/com/s4n/drone/TestDroneMovimiento.scala:191:66: Cannot find an implicit ExecutionContext. You might pass[0m
+[0m[[0m[31merror[0m] [0m[0man (implicit ec: ExecutionContext) parameter to your method[0m
+[0m[[0m[31merror[0m] [0m[0mor import scala.concurrent.ExecutionContext.Implicits.global.[0m
+[0m[[0m[31merror[0m] [0m[0m  val reporte: Future[List[Drone]] = ServicioDron.repartirPedidos(drone,listRuta)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                 ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

@@ -11,13 +11,11 @@ val fileName: Archivo= Archivo("/home/s4n/Documentos/in.txt")
 val pos = Posicion(Coordenada(0,0),N())
 val drone: Drone = new Drone(1,pos,Capacidad(10))
 
-val listRuta: Try[Ruta]= interpretealgebraServicioArchivoAlgebra.leerArchivo(fileName)
+val listRuta: Ruta= ServicioArchivo.leerArchivo(fileName)
 println(s"Sucess Aqui!! \n ${listRuta}")
 
-val reporte: Try[Reporte] = listRuta.map(x =>
-  interpretealgebraServicioArchivoAlgebra.generarReporteEntrega(InterpretacionServicioDronAlgebra.reporteEntrega(InterpretacionServicioDronAlgebra.hacerRuta(Try(x),drone)))
+val reporte: Reporte = ServicioArchivo.generarReporteEntrega(ServicioDron.reporteEntrega(ServicioDron.hacerRuta(listRuta,drone)))
 
-)
 
 
 

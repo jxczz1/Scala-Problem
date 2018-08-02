@@ -1,10 +1,1 @@
-(-2,4) Orientacion Norte
-(-1,3) Orientacion Sur
-(0,0) Orientacion Occidente
-(-4,1) Orientacion Occidente
-(-5,1) Orientacion Sur
-(-5,-1) Orientacion Occidente
-(-7,-1) Orientacion Oriente
-(-7,-3) Orientacion Oriente
-(-7,-2) Orientacion Norte
-(-5,2) Orientacion Norte
+(-2,4) Orientacion Norte(-1,3) Orientacion Sur(0,0) Orientacion Occidente(-4,1) Orientacion Occidente(-5,1) Orientacion Sur(-5,-1) Orientacion Occidente(-7,-1) Orientacion Oriente(-7,-3) Orientacion Oriente(-7,-2) Orientacion Norte(-5,2) Orientacion Norte

@@ -1,13 +1,6 @@
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documentos/proyecto-final-drones/src/main/scala/co/com/s4n/drone/modelling/dominio/main.scala:15:28: not found: value interpretealgebraServicioArchivoAlgebra[0m
-[0m[[0m[31merror[0m] [0m[0m  val listRuta: Try[Ruta]= interpretealgebraServicioArchivoAlgebra.leerArchivo(fileName)[0m
-[0m[[0m[31merror[0m] [0m[0m                           ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documentos/proyecto-final-drones/src/main/scala/co/com/s4n/drone/modelling/dominio/main.scala:19:5: not found: value interpretealgebraServicioArchivoAlgebra[0m
-[0m[[0m[31merror[0m] [0m[0m    interpretealgebraServicioArchivoAlgebra.generarReporteEntrega(InterpretacionServicioDronAlgebra.reporteEntrega(InterpretacionServicioDronAlgebra.hacerRuta(Try(x),drone)))[0m
-[0m[[0m[31merror[0m] [0m[0m    ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documentos/proyecto-final-drones/src/main/scala/co/com/s4n/drone/modelling/dominio/main.scala:19:67: not found: value InterpretacionServicioDronAlgebra[0m
-[0m[[0m[31merror[0m] [0m[0m    interpretealgebraServicioArchivoAlgebra.generarReporteEntrega(InterpretacionServicioDronAlgebra.reporteEntrega(InterpretacionServicioDronAlgebra.hacerRuta(Try(x),drone)))[0m
-[0m[[0m[31merror[0m] [0m[0m                                                                  ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documentos/proyecto-final-drones/src/main/scala/co/com/s4n/drone/modelling/dominio/main.scala:19:116: not found: value InterpretacionServicioDronAlgebra[0m
-[0m[[0m[31merror[0m] [0m[0m    interpretealgebraServicioArchivoAlgebra.generarReporteEntrega(InterpretacionServicioDronAlgebra.reporteEntrega(InterpretacionServicioDronAlgebra.hacerRuta(Try(x),drone)))[0m
-[0m[[0m[31merror[0m] [0m[0m                                                                                                                   ^[0m
-[0m[[0m[31merror[0m] [0m[0mfour errors found[0m
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documentos/proyecto-final-drones/src/main/scala/co/com/s4n/drone/modelling/dominio/main.scala:20:66: Cannot find an implicit ExecutionContext. You might pass[0m
+[0m[[0m[31merror[0m] [0m[0man (implicit ec: ExecutionContext) parameter to your method[0m
+[0m[[0m[31merror[0m] [0m[0mor import scala.concurrent.ExecutionContext.Implicits.global.[0m
+[0m[[0m[31merror[0m] [0m[0m  val reporte: Future[List[Drone]] = ServicioDron.repartirPedidos(drone,listRuta)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                 ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
