@@ -1,4 +1,6 @@
 package co.com.s4n.drone.modelling.dominio.entidades
 
-case class Reporte (reporte :List[String])
+import scala.concurrent.Future
+
+case class Reporte (reporte : Future[String])
 case class  Archivo(archivo : String)

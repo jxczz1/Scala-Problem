@@ -1,21 +1,28 @@
 package co.com.s4n.drone.modelling.dominio.servicios
 
 import co.com.s4n.drone.modelling.dominio.entidades._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.io.Source
 import java.io._
+import java.util.concurrent.Executors
 
+import scala.concurrent.{Future}
 import scala.util.Try
 
 
-sealed trait algebraServicioArchivos {
+sealed trait ServicioArchivoAlgebra {
 
   def leerArchivo(txtName: Archivo): Try[Ruta]
-  def generarReporteEntrega(reporteEntrega: List[Posicion]): Reporte
+  def generarReporteEntrega(reporteEntrega: Future[List[Posicion]]): Reporte
 }
 
 //Interpretar AlgebraServicioArchivos
-sealed trait interpretealgebraServicioArchivos extends algebraServicioArchivos {
+sealed trait ServicioArchivo extends ServicioArchivoAlgebra {
+
+  //  Hilo Principal
+
+
 
 
    def leerArchivo(txtName: Archivo): Try[Ruta] = {
@@ -26,38 +33,29 @@ sealed trait interpretealgebraServicioArchivos extends algebraServicioArchivos {
      ruta
    }
 
-   def generarRuta(listaTxt : List[List[Char]]): Ruta={
-
-     val b = listaTxt.map( x => x.map(y=> Instruccion.newInstruccion(y.toString)))
-     val c: List[Entrega] = b.map(x=> Entrega(x))
-     val ruta = Ruta(c)
-     ruta
-
-
-   }
 
 
 
-  def generarReporteEntrega(reporteEntrega: List[Posicion]): Reporte = {
 
-    val listaResultado: List[String] = reporteEntrega.map(x=>
-      s"(${x.coordenada.x},${x.coordenada.y}) Orientacion ${x.orientacion.toString}"
+  def generarReporteEntrega(reporteEntrega: Future[List[Posicion]]): Reporte = {
+
+    val listaResultado: Future[String]= reporteEntrega.map(x=>
+      (s"(${x.map(a=> a.coordenada.x)},${x.map(b=> b.coordenada.y)}) Orientacion ${x.map(c=> c.orientacion.toString)}")
      )
     val a: File = new  File("/home/s4n/Documentos/resultado.txt")
 
     val bw = new BufferedWriter(new FileWriter(a))
 
-    val Resultado: Reporte = Reporte(listaResultado.drop(1))
+    val Resultado: Reporte = Reporte(listaResultado.map(x=> x.drop(1)))
 
-    Resultado.reporte.foreach( x =>
-     bw.write(s"${x}\n")
+    Resultado.reporte.map(x=>
+        bw.write(x)
     )
      bw.close()
      Resultado
-
   }
 
 }
 
 // Trait Object
-object interpretealgebraServicioArchivos extends interpretealgebraServicioArchivos
+object ServicioArchivo extends ServicioArchivo

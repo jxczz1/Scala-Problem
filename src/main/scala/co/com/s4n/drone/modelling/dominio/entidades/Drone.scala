@@ -61,12 +61,13 @@ object Instruccion {    //Se verifica dato Que ingresa
       case "A" => A()
       case "D" => D()
       case "I" => I()
-      case _ => throw new IllegalArgumentException("Instruccion incorrecta")
+     // case _ => throw new IllegalArgumentException("Instruccion incorrecta")
     }
   }
 }
 
-
+//Sustantivo drone
+case class Drone ( id:Int, posicion: Posicion,capacidad: Capacidad )
 
 // Se define sustantivo Posicion compuesta por Coordenada y orientacion
 case class Posicion (coordenada: Coordenada,orientacion : Orientacion)
@@ -77,13 +78,10 @@ case class  Coordenada( x: Int ,y: Int )
 //Se define capacidad del dron
 case class  Capacidad( cantidadAlmuerzos : Int)
 
-//Sustantivo drone
-case class Drone ( id:Int, posicion: Posicion,capacidad: Capacidad )
-
 // Sustantivo  entrega
 case  class Entrega(listaInstrucciones : List [Instruccion])
 
-// Sustantivo  entrega
+// Sustantivo  ruta
 case  class Ruta(listaEntregas: List[Entrega])
 
 

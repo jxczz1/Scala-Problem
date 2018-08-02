@@ -24,3 +24,6 @@ sbt
 testOnly co.com.s4n.drone TestDroneMovimiento
 testDroneMovimiento co.com.s4n.drone
 testOnly co.com.s4n.drone.TestDroneMovimiento
+testOnly co.com.s4n.drone TestDroneMovimiento
+testOnly co.com.s4n.drone.TestDroneMovimiento
+git add .
