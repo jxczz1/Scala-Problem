@@ -61,7 +61,7 @@ object Instruccion {    //Se verifica dato Que ingresa
       case "A" => A()
       case "D" => D()
       case "I" => I()
-      //case _ => Failure(new IllegalArgumentException("Instruccion incorrecta"))
+      case _ => throw new IllegalArgumentException("Instruccion incorrecta")
     }
   }
 }

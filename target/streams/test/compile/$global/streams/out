@@ -1,6 +1,0 @@
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documentos/proyecto-final-drones/src/test/scala/co/com/s4n/drone/TestDroneMovimiento.scala:113:40: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : Int(10)[0m
-[0m[[0m[31merror[0m] [0m[0m required: co.com.s4n.drone.modelling.dominio.entidades.Capacidad[0m
-[0m[[0m[31merror[0m] [0m[0m    val drone: Drone = new Drone(1,pos,10)[0m
-[0m[[0m[31merror[0m] [0m[0m                                       ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m

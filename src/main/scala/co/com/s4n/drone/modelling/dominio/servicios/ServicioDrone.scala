@@ -2,6 +2,9 @@ package co.com.s4n.drone.modelling.dominio.servicios
 
 import co.com.s4n.drone.modelling.dominio.entidades._
 
+import scala.concurrent.Future
+import scala.util.Try
+
 
 
   //Defino un Algebra Api
@@ -10,7 +13,7 @@ import co.com.s4n.drone.modelling.dominio.entidades._
     def giroAlaDerecha(drone: Drone):Drone
     def avanzarDrone(drone: Drone): Drone
     def hacerEntrega (entrega: Entrega  , drone :Drone): Drone
-    def hacerRuta (ruta: Ruta  , drone :Drone): List[Drone]
+    def hacerRuta (ruta: Try[Ruta]  , drone :Drone): Future[List[Drone]]
     def operarInstruccion (drone: Drone , instruccion : Instruccion): Drone
     def reporteEntrega ( drone: List[Drone] ): List[Posicion]
   }
@@ -60,6 +63,7 @@ import co.com.s4n.drone.modelling.dominio.entidades._
     def avanzarDrone(drone: Drone): Drone = {
 
 
+
       val orien: Orientacion = drone.posicion.orientacion //Orientacion que define en que direccion avanza
 
 
@@ -104,17 +108,20 @@ import co.com.s4n.drone.modelling.dominio.entidades._
 
      }
 
-     def hacerRuta ( ruta : Ruta  , drone :Drone): List[Drone] ={ //Funcion que entrega los domilios en lso destinos
+     def hacerRuta ( ruta : Try[Ruta]  , drone :Drone): Future[List[Drone]] ={ //Funcion que entrega los domilios en lso destinos
 
+     val res = Future{
        val liposDrone: List[Drone] = List(drone)
-       val resultadoEntrega: List[Drone] = ruta.listaEntregas.foldLeft(liposDrone) {
+       val resultadoEntrega: List[Drone] = ruta.get.listaEntregas.foldLeft(liposDrone) {
          (resultado, item) =>
           resultado :+ InterpretacionServicioDrone.hacerEntrega(item,resultado.last)
        }
         resultadoEntrega
+        }
+       res
      }
 
-     def reporteEntrega ( drone: List[Drone] ): List[Posicion] ={ //Funcion que entrega Resultados de entrega domicilios dron
+     def reporteEntrega ( drone: Future[List[Drone]] ): List[Posicion] ={ //Funcion que entrega Resultados de entrega domicilios dron
 
        val reporteEntrega: List[Posicion] = drone.map(x => x.posicion)
        reporteEntrega

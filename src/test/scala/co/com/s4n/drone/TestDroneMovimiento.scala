@@ -4,6 +4,8 @@ import co.com.s4n.drone.modelling.dominio.entidades._
 import org.scalatest.FunSuite
 import co.com.s4n.drone.modelling.dominio.servicios.{InterpretacionServicioDrone, interpretealgebraServicioArchivos}
 
+import scala.util.{Failure, Success, Try}
+
 
 
 
@@ -125,11 +127,6 @@ class TestDroneMovimiento extends FunSuite {
   }
 
 
-  test("Test leer Archivo de instrucciones2  ") {
-
-
-
-  }
 
   test("Test Resultados coordenadas  x") {
 
@@ -139,20 +136,43 @@ class TestDroneMovimiento extends FunSuite {
     val pos = Posicion(Coordenada(0,0),N())
     val drone: Drone = new Drone(1,pos,Capacidad(10))
 
-    //val listRuta: Ruta = interpretealgebraServicioArchivos.leerArchivo(fileName)
+    val listRuta: Try[Ruta]= interpretealgebraServicioArchivos.leerArchivo(fileName)
+    println(s"Sucess Aqui!! \n ${listRuta}")
 
-   // val liposDrone: List[Drone] = InterpretacionServicioDrone.hacerRuta(listRuta,drone)
+    val reporte: Try[Reporte] = listRuta.map(x =>
+      interpretealgebraServicioArchivos.generarReporteEntrega(InterpretacionServicioDrone.reporteEntrega(InterpretacionServicioDrone.hacerRuta(Try(x),drone)))
+    )
 
-   // val reporteDrone: List[Posicion] = InterpretacionServicioDrone.reporteEntrega(liposDrone)
-
-    //val crearReporte = interpretealgebraServicioArchivos.generarReporteEntrega(reporteDrone)
 
     println("\n ***********************LISTA Resultados*************** ")
-   // println(s"Lista Resultados de posicion donde hizo entregas el dron\n ${crearReporte}  ")
+    println(s"Lista Resultados de posicion donde hizo entregas el dron\n ${reporte}  ")
+
+    assert(reporte == Success(Reporte(List("(-2,4) Orientacion Norte", "(-1,3) Orientacion Sur","(0,0) Orientacion Occidente","(-4,1) Orientacion Occidente","(-5,1) Orientacion Sur","(-5,-1) Orientacion Occidente","(-7,-1) Orientacion Oriente","(-7,-3) Orientacion Oriente","(-7,-2) Orientacion Norte","(-5,2) Orientacion Norte"))))
+
+  }
 
 
+  test("Test Archivo con Instrucciones malas") {
 
-    assert(1 == 1)
+    val fileName: Archivo= Archivo("/home/s4n/Documentos/pruebaError.txt")
+
+
+    val pos = Posicion(Coordenada(0,0),N())
+    val drone: Drone = new Drone(1,pos,Capacidad(10))
+
+    val listRuta: Try[Ruta]= interpretealgebraServicioArchivos.leerArchivo(fileName)
+    println(s"Sucess Aqui!! \n ${listRuta}")
+
+    val reporte: Try[Reporte] = listRuta.map(x =>
+      interpretealgebraServicioArchivos.generarReporteEntrega(InterpretacionServicioDrone.reporteEntrega(InterpretacionServicioDrone.hacerRuta(Try(x),drone)))
+    )
+
+
+    println("\n ***********************LISTA Resultados*************** ")
+    println(s"Lista Resultados de posicion donde hizo entregas el dron archivo malo \n ${reporte}  ")
+
+
+    assert(reporte == reporte )
 
   }
 

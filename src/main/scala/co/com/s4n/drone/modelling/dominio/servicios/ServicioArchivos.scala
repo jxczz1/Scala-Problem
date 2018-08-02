@@ -14,18 +14,16 @@ sealed trait algebraServicioArchivos {
   def generarReporteEntrega(reporteEntrega: List[Posicion]): Reporte
 }
 
-//Interpretar AlgebraInstrucciones
+//Interpretar AlgebraServicioArchivos
 sealed trait interpretealgebraServicioArchivos extends algebraServicioArchivos {
 
 
    def leerArchivo(txtName: Archivo): Try[Ruta] = {
      val listaInstrucciones :List[String] = Source.fromFile(txtName.archivo).getLines().toList
 
-     val a: List[List[Char]] = listaInstrucciones.map(x => x.toList)
-     val b: List[List[Instruccion]] = a.map(x => x.map(y=> Instruccion.newInstruccion(y.toString)))
-     val c: List[Entrega] = b.map(x=> Entrega(x))
-     val ruta = Ruta(c)
-     Try(ruta)
+     val instruccionesSeparadas: List[List[Char]] = listaInstrucciones.map(x => x.toList)
+     val ruta: Try[Ruta] = Try(Ruta(instruccionesSeparadas.map(x => x.map(y=> Instruccion.newInstruccion(y.toString))).map(z=> Entrega(z))))
+     ruta
    }
 
    def generarRuta(listaTxt : List[List[Char]]): Ruta={
@@ -42,7 +40,7 @@ sealed trait interpretealgebraServicioArchivos extends algebraServicioArchivos {
 
   def generarReporteEntrega(reporteEntrega: List[Posicion]): Reporte = {
 
-     val listaResultado: List[String] = reporteEntrega.map(x=>
+    val listaResultado: List[String] = reporteEntrega.map(x=>
       s"(${x.coordenada.x},${x.coordenada.y}) Orientacion ${x.orientacion.toString}"
      )
     val a: File = new  File("/home/s4n/Documentos/resultado.txt")
@@ -54,9 +52,8 @@ sealed trait interpretealgebraServicioArchivos extends algebraServicioArchivos {
     Resultado.reporte.foreach( x =>
      bw.write(s"${x}\n")
     )
-    bw.close()
-   Resultado
-
+     bw.close()
+     Resultado
 
   }
 
