@@ -29,3 +29,5 @@ testOnly co.com.s4n.drone.TestDroneMovimiento
 git add .
 testOnly co.com.s4n.drone.TestDroneMovimiento
 git add .
+testOnly co.com.s4n.drone.TestDroneMovimiento
+testOnly co.com.s4n.drone.DroneTest

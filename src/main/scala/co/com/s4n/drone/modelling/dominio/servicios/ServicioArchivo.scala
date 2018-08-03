@@ -1,20 +1,26 @@
 package co.com.s4n.drone.modelling.dominio.servicios
 
 import co.com.s4n.drone.modelling.dominio.entidades._
+
 import scala.io.Source
 import java.io._
+import java.util.concurrent.Executors
+
+import scala.concurrent.{ExecutionContext, Future}
 
 
 sealed trait ServicioArchivoAlgebra {
 
   def leerArchivo(txtName: Archivo): Ruta
-  def generarReporteEntrega(reporteEntrega: List[Posicion]): Reporte
+  def generarReporteEntrega(reporteEntrega: List[Posicion]): Future[Reporte]
 }
 
 //Interpretar AlgebraServicioArchivos
 sealed trait ServicioArchivo extends ServicioArchivoAlgebra {
 
+
   //  Hilo Principal
+  implicit val ecDrones = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(20))
 
 
 
@@ -30,7 +36,8 @@ sealed trait ServicioArchivo extends ServicioArchivoAlgebra {
 
 
 
-  def generarReporteEntrega(reporteEntrega: List[Posicion]): Reporte = {
+  def generarReporteEntrega(reporteEntrega: List[Posicion]): Future[Reporte]=Future {
+
 
     val listaResultado: List[String]= reporteEntrega.map(x=>
       (s"(${x.coordenada.x},${x.coordenada.y}) Orientacion ${x.orientacion.toString}")

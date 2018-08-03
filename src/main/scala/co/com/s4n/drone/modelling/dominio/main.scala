@@ -17,11 +17,7 @@ object main extends App {
   val listRuta: Ruta= ServicioArchivo.leerArchivo(fileName)
   println(s"Sucess Aqui!! \n ${listRuta}")
 
-  val reporte: Future[List[Drone]] = ServicioDron.repartirPedidos(drone,listRuta)
 
-
-  println("\n ***********************LISTA Resultados*************** ")
-  println(s"Lista Resultados de posicion donde hizo entregas el dron\n ${reporte}")
 
 
 }

@@ -4,16 +4,14 @@ import co.com.s4n.drone.modelling.dominio.entidades._
 import org.scalatest.FunSuite
 import co.com.s4n.drone.modelling.dominio.servicios.{ServicioArchivo, ServicioDron}
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{Await, Future}
+import scala.concurrent.duration._
 
 
 
 
 
-
-
-
-class TestDroneMovimiento extends FunSuite {
+class DroneTest extends FunSuite {
 
 
   test("probando retorno posicion ") {
@@ -28,7 +26,7 @@ class TestDroneMovimiento extends FunSuite {
   }
 
 
-  test("Avanzar drone  en direccion cardinalidad ") {
+  test("Avanzar drone en direccion de cardinalidad ") {
 
 
      val pos = Posicion(Coordenada(4,5),N())
@@ -101,7 +99,7 @@ class TestDroneMovimiento extends FunSuite {
 
 
 
-  test("Test Resultados coordenadas  x") {
+  test("Test Resultados coordenadas  de entregas") {
 
     val fileName: Archivo= Archivo("files/in.txt")
 
@@ -109,11 +107,11 @@ class TestDroneMovimiento extends FunSuite {
     val pos = Posicion(Coordenada(0,0),N())
     val drone: Drone = new Drone(1,pos,Capacidad(10))
     val listRuta: Ruta= ServicioArchivo.leerArchivo(fileName)
-    val reporte: Reporte = ServicioArchivo.generarReporteEntrega(ServicioDron.reporteEntrega(ServicioDron.hacerRuta(listRuta,drone)))
+    val reporte: Future[Reporte] = ServicioArchivo.generarReporteEntrega(ServicioDron.reporteEntrega(ServicioDron.hacerRuta(listRuta,drone)))
     println("\n ***********************LISTA Resultados*************** ")
-    println(s"Lista Resultados de posicion donde hizo entregas el dron\n ${reporte}  ")
+    println(s"Lista Resultados Dron en paralelo \n ${Await.result(reporte,10 seconds)}")
 
-    (reporte == Reporte(List("(-2,4) Orientacion Norte", "(-1,3) Orientacion Sur","(0,0) Orientacion Occidente","(-4,1) Orientacion Occidente","(-5,1) Orientacion Sur","(-5,-1) Orientacion Occidente","(-7,-1) Orientacion Oriente","(-7,-3) Orientacion Oriente","(-7,-2) Orientacion Norte","(-5,2) Orientacion Norte")))
+    (reporte ==Future(Reporte(List("(-2,4) Orientacion Norte", "(-1,3) Orientacion Sur","(0,0) Orientacion Occidente","(-4,1) Orientacion Occidente","(-5,1) Orientacion Sur","(-5,-1) Orientacion Occidente","(-7,-1) Orientacion Oriente","(-7,-3) Orientacion Oriente","(-7,-2) Orientacion Norte","(-5,2) Orientacion Norte"))))
 
   }
 
@@ -123,39 +121,20 @@ class TestDroneMovimiento extends FunSuite {
     val fileName: Archivo= Archivo("files/in.txt")
     val pos = Posicion(Coordenada(0,0),N())
     val drone: Drone = new Drone(1,pos,Capacidad(10))
-
     val listRuta: Ruta= ServicioArchivo.leerArchivo(fileName)
 
-    val reporte: Reporte=
+    val reporte: Future[Reporte]=
       ServicioArchivo.generarReporteEntrega(ServicioDron.reporteEntrega(ServicioDron.hacerRuta(listRuta,drone))
     )
-
-
     println("\n ***********************Lista Resultados*************** ")
-    println(s"Lista Resultados de posicion donde hizo entregas el dron archivo malo \n ${reporte}  ")
+    println(s"Lista Resultados Dron en paralelo \n ${Await.result(reporte,10 seconds)}  ")
 
-
-    assert(reporte == reporte )
+    assert(1==1 )
 
   }
 
 
- test("Prueba con drones paralelos")
-{
-  val fileName: Archivo = Archivo("files/in.txt")
 
-  val pos = Posicion(Coordenada(0,0),N())
-  val drone: Drone = new Drone(1,pos,Capacidad(10))
-
-  val listRuta: Ruta= ServicioArchivo.leerArchivo(fileName)
-  val reporte: Future[List[Drone]] = ServicioDron.repartirPedidos(drone,listRuta)
-
-
-  println("\n ***********************LISTA Resultados*************** ")
-  println(s"Lista Resultados de posicion donde hizo entregas  paralelas\n ${reporte}")
-
-
-}
 
 
 

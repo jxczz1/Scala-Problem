@@ -1,9 +1,9 @@
-[0m[[0m[0minfo[0m] [0m[0m[32mTestDroneMovimiento:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mDroneTest:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- probando retorno posicion [0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Avanzar drone  en direccion cardinalidad [0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Avanzar drone en direccion de cardinalidad [0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- Girar Drone 90 Grados a la izquierda [0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- Girar Drone 90 Grados a la Derecha [0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- Interpretar ruta de una entrega  del drone [0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- Test leer Archivo de instrucciones  [0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Test Resultados coordenadas  x[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Test Resultados coordenadas  de entregas[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- Test Archivo con Instrucciones malas[0m[0m

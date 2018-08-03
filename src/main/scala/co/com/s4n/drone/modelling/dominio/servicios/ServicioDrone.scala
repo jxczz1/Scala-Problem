@@ -25,14 +25,11 @@ sealed trait ServicioDronAlgebra {
 
   def reporteEntrega(drone: List[Drone]): List[Posicion]
 
-  def repartirPedidos(drone: Drone, ruta: Ruta)(implicit ec: ExecutionContext): Future[List[Drone]]
 }
 
 
 sealed trait ServicioDron extends ServicioDronAlgebra {
 
-  //  Hilo Principal
-  val ecDrones = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(20))
 
   //Operaciones Orientacion
 
@@ -140,7 +137,6 @@ sealed trait ServicioDron extends ServicioDronAlgebra {
 
   }
 
-  def repartirPedidos(drone: Drone, ruta: Ruta)(implicit ec: ExecutionContext): Future[List[Drone]]= Future(hacerRuta(listRuta,drone))
 
 }
 
